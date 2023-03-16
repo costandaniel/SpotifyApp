@@ -3,14 +3,15 @@ const axios = require("axios");
 const express = require("express");
 const bodyParser = require("body-parser");
 const querystring = require("querystring");
-const { response } = require("express");
+const { response, query } = require("express");
 const app = express();
 const port = 3000;
+const cors = require("cors");
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const generateRandomString = (length) => {
@@ -38,7 +39,9 @@ app.get("/login", (req, res) => {
   });
   res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
 });
-
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 app.get("/callback", (req, res) => {
   const code = req.query.code || null;
 
@@ -59,24 +62,23 @@ app.get("/callback", (req, res) => {
   })
     .then((response) => {
       if (response.status === 200) {
-        const { access_token, token_type } = response.data;
-
-        axios
-          .get("https://api.spotify.com/v1/me", {
-            headers: {
-              Authorization: `${token_type} ${access_token}`,
-            },
-          })
-          .then((response) => {
-            res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
-          })
-          .catch((error) => {
-            res.send(error);
-          });
+        const { access_token, refresh_token } = response.data;
+        //redirect to react app
+        const queryParams = querystring.stringify({
+          access_token,
+          refresh_token,
+        });
+        res.redirect(`http://localhost:3001/?${queryParams}`);
+        //pass along tokens in query params
       } else {
-        res.send(response);
+        res.redirect(
+          `/?${querystring.stringify({
+            error: "invalid token",
+          })}`
+        );
       }
     })
+
     .catch((error) => {
       res.send(error);
     });
