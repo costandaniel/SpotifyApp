@@ -9,8 +9,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import { GlobalStyle } from "./styles";
-import { Login } from "./pages";
-
+import { Login, Profile } from "./pages";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -41,35 +40,29 @@ function App() {
         {!token ? (
           <Login />
         ) : (
-          <Router>
-            <ScrollToTop />
-            <Switch>
-              <Route path="/top-artists">
-                <h1>Top Artists</h1>
-              </Route>
-              <Route path="/top-tracks">
-                <h1>Top Tracks</h1>
-              </Route>
-              <Route path="/playlists/:id">
-                <h1>Playlist</h1>
-              </Route>
-              <Route path="/playlists">
-                <h1>Playlist</h1>
-              </Route>
-              <Route path="/">
-                <button onClick={logout}>Logout</button>
-                {profile && (
-                  <div>
-                    <h1>{profile.display_name}</h1>
-                    <p>{profile.followers.total} Followers</p>
-                    {profile.images.length && profile.images[0].url && (
-                      <img src={profile.images[0].url} alt="profile"></img>
-                    )}
-                  </div>
-                )}
-              </Route>
-            </Switch>
-          </Router>
+          <>
+            <button onClick={logout}>Log Out</button>
+            <Router>
+              <ScrollToTop />
+              <Switch>
+                <Route path="/top-artists">
+                  <h1>Top Artists</h1>
+                </Route>
+                <Route path="/top-tracks">
+                  <h1>Top Tracks</h1>
+                </Route>
+                <Route path="/playlists/:id">
+                  <h1>Playlist</h1>
+                </Route>
+                <Route path="/playlists">
+                  <h1>Playlist</h1>
+                </Route>
+                <Route path="/">
+                  <Profile />
+                </Route>
+              </Switch>
+            </Router>
+          </>
         )}
       </header>
     </div>
