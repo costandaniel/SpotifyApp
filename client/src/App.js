@@ -8,17 +8,8 @@ import {
   useLocation,
 } from "react-router-dom";
 import "./App.css";
-import styled from "styled-components/macro";
 import { GlobalStyle } from "./styles";
-
-const StyledLogginButton = styled.a`
-  background-color: var(--green);
-  color: var(--white);
-  padding: 10px 20px;
-  margin: 20px auto;
-  border-radius: 30px;
-  display: inline-block;
-`;
+import { Login } from "./pages";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -48,9 +39,7 @@ function App() {
       <GlobalStyle />
       <header className="App-header">
         {!token ? (
-          <StyledLogginButton href="http://localhost:3000/login">
-            Log in to Spotify
-          </StyledLogginButton>
+          <Login />
         ) : (
           <Router>
             <ScrollToTop />
