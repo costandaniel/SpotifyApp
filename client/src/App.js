@@ -9,31 +9,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import styled from "styled-components/macro";
-import { createGlobalStyle } from "styled-components/macro";
-
-const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Twinkle+Star&display=swap');
-:root {
-  --black:#000000;
-  --green: #1db954;
-  --white:#ffffff;
-  --font:'Twinkle Star', cursive;
-}
-html {
-  box-sizing: border-box;
-}
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-body{
-  margin: 0;
-  padding: 0;
-  background-color: var(--black);
-  color: var(--white);
-}
-`;
+import { GlobalStyle } from "./styles";
 
 const StyledLogginButton = styled.a`
   background-color: var(--green);
