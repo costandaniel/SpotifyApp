@@ -14,6 +14,7 @@ import {
   Loader,
 } from "../components";
 import { StyledHeader } from "../styles";
+import { withRouter } from "react-router-dom";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);

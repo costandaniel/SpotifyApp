@@ -51,16 +51,15 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
-      <GlobalStyle />
+    <Router>
+      <div className="app">
+        <GlobalStyle />
 
-      {!token ? (
-        <Login />
-      ) : (
-        <>
-          <StyledLogoutButton onClick={logout}>Log Out</StyledLogoutButton>
-
-          <Router>
+        {!token ? (
+          <Login />
+        ) : (
+          <>
+            <StyledLogoutButton onClick={logout}>Log Out</StyledLogoutButton>
             <ScrollToTop />
             <Switch>
               <Route path="/top-artists">
@@ -75,14 +74,14 @@ function App() {
               <Route path="/playlists">
                 <Playlists />
               </Route>
-              <Route path="/">
+              <Route path="/" exact>
                 <Profile />
               </Route>
             </Switch>
-          </Router>
-        </>
-      )}
-    </div>
+          </>
+        )}
+      </div>
+    </Router>
   );
 }
 
