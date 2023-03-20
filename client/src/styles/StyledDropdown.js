@@ -35,6 +35,9 @@ const StyledDropdown = styled.div`
     padding: var(--spacing-xs) var(--spacing-xl) var(--spacing-xs)
       var(--spacing-sm);
   }
+  option {
+    color: var(--black);
+  }
 `;
 
 export default StyledDropdown;
